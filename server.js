@@ -5,10 +5,11 @@ var routes = require('./app/routes/index.js');
 var mongoose = require('mongoose');
 var session = require('express-session');
 
+
 var app = express();
 require('dotenv').load();
 
-mongoose.connect(process.env.MONGO_URI);
+mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
 
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
@@ -20,6 +21,8 @@ app.use(session({
 	resave: false,
 	saveUninitialized: true
 }));
+
+routes(app, mongoose);
 
 var port = process.env.PORT || 8080;
 app.listen(port,  function () {

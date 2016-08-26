@@ -38,7 +38,7 @@ function UrlHandler(mongoose){
             .select("originalUrl shortUrl")
             .exec(function(err, foundRecord){
                 if(foundRecord.length > 0){
-                    res.json(foundRecord[0])
+                    res.redirect(301, foundRecord[0].originalUrl)
                 }else{
                     res.json({error: "No URL found"});
                 }
